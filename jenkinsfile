@@ -1,0 +1,25 @@
+pipeline {
+  agent any
+  stages {
+    stage('Checkout') {
+      steps { git 'https://github.com/Arulrot/gamutgurus_devops.git' }
+    }
+    stage('Build') {
+      steps { sh 'docker build -t flask-app .' }
+    }
+    stage('Test') {
+      steps { sh 'pytest' }
+    }
+    stage('Deploy') {
+      steps {
+        sshagent(['ec2-key']) {
+          sh '''
+                ssh -o StrictHostKeyChecking=no -i mykey.pem ec2-user@<EC2_IP> \
+                "docker run -d -p 80:5000 --name flask-app flask-app"
+                '''
+
+        }
+      }
+    }
+  }
+}
