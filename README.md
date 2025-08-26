@@ -54,7 +54,7 @@ flask-app/
 ### 1 Local Setup
 Clone the repo:
 ```bash
-git clone https://github.com/yourusername/flask-app.git
+git clone https://github.com/Arulrot/gamutgurus_devops.git
 cd flask-app
 ```
 
